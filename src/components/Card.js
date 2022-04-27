@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import img from "./../images/img.jpg"
 
-export default function Card({title}) {
+export default function Card({title,img}) {
   return (
     <div className='menu-item'>
         <div className='bgImg' style={{backgroundImage: `url(${img})`}}/>
