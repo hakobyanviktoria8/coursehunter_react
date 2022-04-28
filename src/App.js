@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './routes/HomePage';
 import Flowers from './components/Flowers';
+import Header from './components/Header';
 
 function App() {
   return (
     <BrowserRouter>
+    <Header />
       <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/flowers" element={<Flowers />} />
