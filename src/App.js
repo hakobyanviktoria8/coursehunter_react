@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './routes/HomePage';
 import Flowers from './components/Flowers';
 import Header from './components/Header';
+import SignIn from './routes/SignIn';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/shose" element="shose" />
           <Route path="/womens" element="womens" />
           <Route path="/mens" element="mens" />
+          <Route path="/signin" element={<SignIn/>} />
       </Routes>
     </BrowserRouter>
   );
