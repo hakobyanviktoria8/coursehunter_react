@@ -2,15 +2,8 @@ import React, { useState } from 'react'
 import "./../styles/SignIn.scss"
 
 function SignIn() {
-    const [dataSignIn, setDataSignIn] = useState({
-        email:"",
-        password:""
-    })
-    const [dataSignUp, setDataSignUp] = useState({
-        name:"",
-        email:"",
-        password:""
-    })
+    const [dataSignIn, setDataSignIn] = useState(null)
+    const [dataSignUp, setDataSignUp] = useState(null)
 
     // Submit Sign In
     const handleSubmitSignIn=(e)=>{
