@@ -72,3 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 <!-- if want delete file -->
 rm -rf node-modules
+
+<!-- work with firestore -->
+https://www.youtube.com/watch?v=jCY6DH8F4oc
