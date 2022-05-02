@@ -75,3 +75,30 @@ rm -rf node-modules
 
 <!-- work with firestore -->
 https://www.youtube.com/watch?v=jCY6DH8F4oc
+
+<!-- use firebase firestore -->
+1. Add project
+2. Project name -> continue
+3. Enable -> off -> Create project
+4. Continue
+5. </> choose web version
+6. write App name -> Register app
+7. install firebase
+8. copy generated configuration and paste firebase/..._config.js -> Continue
+9. export const db = getFirestore(app)
+10. ^Firestore Database -> Create database -> Next -> Enable
+11. Cloud Firestore -> Rules -> change false to true -> publish
+12. Cloud Firestore -> Data -> Parent path /....name -> Next
+13. write how many fild neded and add it
+14. go to js file and get data
+15. create arr state -> const [data,setData] = useState([])
+16. const dbColectionRef= collection(db, "db...Name")
+17. useEffect(()=>{
+        const func = async() => {
+            const data = await getDocs(dbColectionRef)
+            console.log(data.docs)
+            setData(data.docs.map(doc=>({...doc.data(), id: doc.id})))
+        }
+        func()
+    },[])
+18. enjoy your life

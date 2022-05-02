@@ -4,6 +4,7 @@ import Flowers from './components/Flowers';
 import Header from './components/Header';
 import SignIn from './routes/SignIn';
 import Shop from './routes/Shop';
+import Contacts from './routes/Contacts';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/mens" element="mens" />
             <Route path="/signin" element={<SignIn/>} />
             <Route path="/shop" element={<Shop/>} />
+            <Route path="/contact" element={<Contacts/>} />
         </Routes>
       </BrowserRouter>
   );

@@ -1,7 +1,6 @@
-import { async } from '@firebase/util'
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 import React, { useState, useEffect } from 'react'
-import { db } from '../firebase_shops_config'
+import { db } from '../firebase/firebase_shops_config'
 import "./../styles/Shops.scss"
 
 function Shop() {
@@ -40,6 +39,7 @@ function Shop() {
         await updateDoc(shopDoc, newShopData)
     }
 
+    // delete shop card
     const handleDelete = async (id) =>{
         const shopDoc = doc(db,"shops", id)
         await deleteDoc(shopDoc)
