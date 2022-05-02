@@ -5,11 +5,6 @@ function SignIn() {
     const [dataSignIn, setDataSignIn] = useState(null)
     const [dataSignUp, setDataSignUp] = useState(null)
 
-    // Submit Sign In
-    const handleSubmitSignIn=(e)=>{
-        e.preventDefault();
-        console.log(dataSignIn);
-    }    
     const handleChangeSignIn =(e) =>{
         const {name, value} = e.target
         setDataSignIn({
@@ -17,6 +12,12 @@ function SignIn() {
             [name] : value,
         })
     }
+    // Submit Sign In
+    const handleSubmitSignIn=(e)=>{
+        e.preventDefault();
+        console.log(dataSignIn);
+        
+    }    
     
     // Submit Sign Up
     const handleSubmitSignUp=(e)=>{

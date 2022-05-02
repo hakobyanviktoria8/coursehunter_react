@@ -1,0 +1,43 @@
+.shopLists{
+    padding: 30px;
+
+    h1{
+        text-align: center;
+    }
+    .addShopCard{
+        border-bottom: 1px solid rgb(239, 239, 239);
+        margin: 30px auto;
+        padding: 20px;
+
+        h2{
+            text-align: center;
+        }
+
+         form{
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+
+            input{
+                font-size: 20px;
+                margin: 5px 0 15px;
+            }
+         }
+    }
+    .shopCardWrapper{
+        display: flex;
+        padding: 20px;
+        flex-wrap: wrap;
+
+        .shopCard{
+            width: 20%;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgb(198, 198, 198);
+            border-radius: 10px;
+            margin: 10px;
+        }
+    }
+}

@@ -3,12 +3,10 @@ import HomePage from './routes/HomePage';
 import Flowers from './components/Flowers';
 import Header from './components/Header';
 import SignIn from './routes/SignIn';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import Shop from './routes/Shop';
 
 function App() {
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -19,9 +17,9 @@ function App() {
             <Route path="/womens" element="womens" />
             <Route path="/mens" element="mens" />
             <Route path="/signin" element={<SignIn/>} />
+            <Route path="/shop" element={<Shop/>} />
         </Routes>
       </BrowserRouter>
-    </Provider>
   );
 }
 
