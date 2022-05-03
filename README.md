@@ -129,3 +129,10 @@ https://www.youtube.com/watch?v=jCY6DH8F4oc
     }
 4. in js file import ffunction
     <button onClick={signInWithGoogle} className="btn">Sign in with Google</button>
+
+
+<!-- for firebase usefull -->
+https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#createUserWithEmailAndPassword
+https://firebase.google.com/docs/firestore/quickstart
+https://medium.com/litslink/react-js-firebase-basics-in-examples-cfc980e6b144
+https://attacomsian.com/blog/javascript-local-storage-store-retrieve-objects
