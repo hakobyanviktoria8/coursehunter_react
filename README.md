@@ -107,3 +107,25 @@ https://www.youtube.com/watch?v=jCY6DH8F4oc
 <!-- Sign in with Google -->
 1. inside Firebase project go to Autentication -> Sign-in method-> Add new provider
 2. chose Google ->Enable-> confirm email -> Save
+3. in config file add
+    // sign in with Google
+    const provider = new GoogleAuthProvider()
+    export const signInWithGoogle = () =>{
+    signInWithPopup(auth, provider)
+    .then((result)=>{
+        // console.log(result)
+        const name = result.user.displayName
+        const email = result.user.email
+        const photoURL = result.user.photoURL
+
+        const userData = {name, email, photoURL}
+        // ceep this data in LocalStorage
+        localStorage.setItem("user", JSON.stringify(userData))
+
+    })
+    .catch(error =>{
+        console.log(error);
+    })
+    }
+4. in js file import ffunction
+    <button onClick={signInWithGoogle} className="btn">Sign in with Google</button>

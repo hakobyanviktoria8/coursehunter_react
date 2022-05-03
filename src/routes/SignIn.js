@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import React, { useState } from 'react'
-import { auth } from '../firebase/firebase_config'
+import { auth, signInWithGoogle } from '../firebase/firebase_config'
 import "./../styles/SignIn.scss"
 import { useNavigate } from "react-router-dom";
 
@@ -72,6 +72,11 @@ function SignUpIn() {
             console.log("Opps",errorMessage)
         }    
     }    
+    
+    // when sign in with google, user data keep localStorage, and get it here
+    const userStr = localStorage.getItem('user');
+    // Parse JSON string to object
+    const userObj = JSON.parse(userStr);
 
   return (
     <>
@@ -79,8 +84,14 @@ function SignUpIn() {
             {/* write welcome message and add SignOut button */}
             { user?.email && 
                 <>
-                    <h3>Welcome {user?.email}</h3>
-                    <button onClick={signOutUser}>Sign Out</button>
+                    <div>
+                        <h3>{userObj?.name}</h3>
+                        <img src= {userObj.photoURL}/>
+                    </div>
+                    <div>
+                        <h3>Welcome {user?.email}</h3>
+                        <button onClick={signOutUser}>Sign Out</button>
+                    </div>
                 </>
             }
         </div>
@@ -106,7 +117,7 @@ function SignUpIn() {
                         Password:
                         <input onChange={handleChangeSignUp} type="password" name="password" autoComplete='off'/>
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input className="btn" type="submit" value="Submit" />
                 </form>
             </div>
 
@@ -122,8 +133,11 @@ function SignUpIn() {
                         Password:
                         <input onChange={handleChangeSignIn} type="password" name="password" autoComplete='off'/>
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input className="btn" type="submit" value="Submit" />
                 </form>
+
+                {/* sign In Google__________________________ */}
+                <button onClick={signInWithGoogle} className="btn">Sign in with Google</button>
             </div>
         </div>
     </>
