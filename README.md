@@ -102,3 +102,8 @@ https://www.youtube.com/watch?v=jCY6DH8F4oc
         func()
     },[])
 18. enjoy your life
+
+
+<!-- Sign in with Google -->
+1. inside Firebase project go to Autentication -> Sign-in method-> Add new provider
+2. chose Google ->Enable-> confirm email -> Save
