@@ -1,8 +1,9 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import React, { useState } from 'react'
 import { auth } from '../firebase/firebase_auth_config'
 import "./../styles/SignIn.scss"
 import { useNavigate } from "react-router-dom";
+import { async } from '@firebase/util';
 
 function SignUpIn() {
     const [dataSignUp, setDataSignUp] = useState({email:"", password:""})
@@ -10,7 +11,7 @@ function SignUpIn() {
     const [user, setUser] = useState({})
     const navigate = useNavigate();
 
-// Submit Sign Up registration
+    // Submit Sign Up registration________________
     // refresh and didn't lost register user
     onAuthStateChanged(auth, (currentUser)=>{
         setUser(currentUser)
@@ -30,7 +31,6 @@ function SignUpIn() {
             console.log("data Sign Up ",dataSignUp);
             const user = await createUserWithEmailAndPassword(auth, dataSignUp.email, dataSignUp.password)
             console.log(user)
-            // navigate("/")
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -43,34 +43,47 @@ function SignUpIn() {
         }
     }
 
-    // signOut User
+    // signOut User________________________________
     const signOutUser= async() => {
         console.log("User sign out success")
         await signOut(auth)
     }
 
-    // Submit Sign In
-    // const handleChangeSignIn =(e) =>{
-    //     const {name, value} = e.target
-    //     setDataSignIn({
-    //         ...dataSignIn,
-    //         [name] : value,
-    //     })
-    // }
-    // const handleSubmitSignIn=(e)=>{
-    //     e.preventDefault();
-    //     console.log("data Sign In ",dataSignIn);        
-    // }    
+    // Submit Sign In________________________________
+    const handleChangeSignIn =(e) =>{
+        const {name, value} = e.target
+        setDataSignIn({
+            ...dataSignIn,
+            [name] : value,
+        })
+    }
+    const handleSubmitSignIn = async (e) => {
+        try {
+            e.preventDefault();
+            console.log("data Sign In ",dataSignIn);   
+            const user = await signInWithEmailAndPassword(auth, dataSignIn.email, dataSignIn.password)
+            console.log(user)
+            navigate("/")
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            if (errorCode) {
+                alert(errorMessage);
+            }
+            console.log("Opps",errorMessage)
+        }    
+    }    
 
   return (
     <>
         <div className='signOut'>
-        { user?.email && 
-            <>
-                <h3>Welcome {user?.email}</h3>
-                <button onClick={signOutUser}>Sign Out</button>
-            </>
-        }
+            {/* write welcome message and add SignOut button */}
+            { user?.email && 
+                <>
+                    <h3>Welcome {user?.email}</h3>
+                    <button onClick={signOutUser}>Sign Out</button>
+                </>
+            }
         </div>
        
         <div className='formsWrapper'>
@@ -101,17 +114,17 @@ function SignUpIn() {
             {/* sign in form data */}
             <div className='signin'>
                 <h2>Sign In</h2>
-                {/* <form>
+                <form onSubmit={handleSubmitSignIn}>
                     <label>
                         Email:
-                        <input type="email" name="email" autoComplete='off'/>
+                        <input onChange={handleChangeSignIn} type="email" name="email" autoComplete='off'/>
                     </label>
                     <label>
                         Password:
-                        <input type="password" name="password" autoComplete='off'/>
+                        <input onChange={handleChangeSignIn} type="password" name="password" autoComplete='off'/>
                     </label>
                     <input type="submit" value="Submit" />
-                </form> */}
+                </form>
             </div>
         </div>
     </>
