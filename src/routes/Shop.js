@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 import React, { useState, useEffect } from 'react'
-import { db } from '../firebase/firebase_shops_config'
+import { db } from '../firebase/firebase_config'
 import "./../styles/Shops.scss"
 
 function Shop() {
@@ -32,8 +32,7 @@ function Shop() {
         const newShopData = {count: +count + 1}
         await updateDoc(shopDoc, newShopData)
     }
-
-    const decShopData =async (id,count=0) => {
+    const decShopData = async (id,count=0) => {
         const shopDoc = doc(db,"shops", id)
         const newShopData = {count: +count - 1}
         await updateDoc(shopDoc, newShopData)
@@ -47,9 +46,8 @@ function Shop() {
     }
 
     useEffect(()=>{
-        const getShops = async()=>{
+        const getShops = async() => {
             const data = await getDocs(shopColectionRef)
-            // console.log(data.docs)
             setShops(data.docs.map(doc=>({...doc.data(), id: doc.id})))
         }
         getShops()

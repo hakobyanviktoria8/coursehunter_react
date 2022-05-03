@@ -1,9 +1,8 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import React, { useState } from 'react'
-import { auth } from '../firebase/firebase_auth_config'
+import { auth } from '../firebase/firebase_config'
 import "./../styles/SignIn.scss"
 import { useNavigate } from "react-router-dom";
-import { async } from '@firebase/util';
 
 function SignUpIn() {
     const [dataSignUp, setDataSignUp] = useState({email:"", password:""})
