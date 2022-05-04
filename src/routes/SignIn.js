@@ -1,20 +1,25 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { auth, signInWithGoogle } from '../firebase/firebase_config'
 import "./../styles/SignIn.scss"
 import { useNavigate } from "react-router-dom";
 
 function SignUpIn() {
-    const [dataSignUp, setDataSignUp] = useState({email:"", password:""})
+    const [dataSignUp, setDataSignUp] = useState({})
     const [dataSignIn, setDataSignIn] = useState({})
     const [user, setUser] = useState({})
     const navigate = useNavigate();
 
     // Submit Sign Up registration________________
     // refresh and didn't lost register user
-    onAuthStateChanged(auth, (currentUser)=>{
-        setUser(currentUser)
-    })
+
+    // fixed multiple rendering
+    useEffect(() => {
+        return onAuthStateChanged(auth, (currentUser)=>{
+            setUser(currentUser)
+        })
+    }, [])
+
     // input fileds change
     const handleChangeSignUp = (e) => {
         const {name, value} = e.target
@@ -46,6 +51,7 @@ function SignUpIn() {
     const signOutUser= async() => {
         console.log("User sign out success")
         await signOut(auth)
+        localStorage.removeItem('user');
     }
 
     // Submit Sign In________________________________
@@ -85,9 +91,14 @@ function SignUpIn() {
             { user?.email && 
                 <>
                     <div>
-                        <h3>{userObj?.name}</h3>
-                        <img src= {userObj.photoURL}/>
+                        {userObj &&
+                            <>
+                                <h3>{userObj?.name}</h3>
+                                <img src= {userObj?.photoURL}/>
+                            </>
+                        }
                     </div>
+                    
                     <div>
                         <h3>Welcome {user?.email}</h3>
                         <button onClick={signOutUser}>Sign Out</button>
@@ -111,11 +122,11 @@ function SignUpIn() {
                     </label>
                     <label>
                         Email:
-                        <input onChange={handleChangeSignUp} type="email" name="email" autoComplete='off'/>
+                        <input onChange={handleChangeSignUp} type="text" name="email" autoComplete='off'/>
                     </label>
                     <label>
                         Password:
-                        <input onChange={handleChangeSignUp} type="password" name="password" autoComplete='off'/>
+                        <input onChange={handleChangeSignUp} type="password" name="password" autoComplete="new-password"/>
                     </label>
                     <input className="btn" type="submit" value="Submit" />
                 </form>
@@ -127,11 +138,11 @@ function SignUpIn() {
                 <form onSubmit={handleSubmitSignIn}>
                     <label>
                         Email:
-                        <input onChange={handleChangeSignIn} type="email" name="email" autoComplete='off'/>
+                        <input onChange={handleChangeSignIn} type="text" name="email" autoComplete='off'/>
                     </label>
                     <label>
                         Password:
-                        <input onChange={handleChangeSignIn} type="password" name="password" autoComplete='off'/>
+                        <input onChange={handleChangeSignIn} type="password" name="password" autoComplete='new-password'/>
                     </label>
                     <input className="btn" type="submit" value="Submit" />
                 </form>
