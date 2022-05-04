@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState, useEffect } from 'react'
 import { auth, signInWithGoogle } from '../firebase/firebase_config'
 import "./../styles/SignIn.scss"
@@ -32,9 +32,9 @@ function SignUpIn() {
     const handleSubmitSignUp= async (e) => {
         try {
             e.preventDefault();
-            console.log("data Sign Up ",dataSignUp);
+            // console.log("data Sign Up ",dataSignUp);
             const user = await createUserWithEmailAndPassword(auth, dataSignUp.email, dataSignUp.password)
-            console.log(user)
+            // console.log("handleSubmitSignUp ",user)
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -45,13 +45,6 @@ function SignUpIn() {
             }
             console.log("Opps",errorMessage)
         }
-    }
-
-    // signOut User________________________________
-    const signOutUser= async() => {
-        console.log("User sign out success")
-        await signOut(auth)
-        localStorage.removeItem('user');
     }
 
     // Submit Sign In________________________________
@@ -65,10 +58,11 @@ function SignUpIn() {
     const handleSubmitSignIn = async (e) => {
         try {
             e.preventDefault();
-            console.log("data Sign In ",dataSignIn);   
+            console.log("Sign In user data ",dataSignIn);   
             const user = await signInWithEmailAndPassword(auth, dataSignIn.email, dataSignIn.password)
-            console.log(user)
-            navigate("/")
+            console.log("handleSubmitSignIn user ",user)
+            localStorage.setItem("user", JSON.stringify(dataSignIn))
+            // navigate("/")
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -94,14 +88,13 @@ function SignUpIn() {
                         {userObj &&
                             <>
                                 <h3>{userObj?.name}</h3>
-                                <img src= {userObj?.photoURL}/>
+                               {userObj?.photoURL && <img src= {userObj?.photoURL}/>}
                             </>
                         }
                     </div>
                     
                     <div>
                         <h3>Welcome {user?.email}</h3>
-                        <button onClick={signOutUser}>Sign Out</button>
                     </div>
                 </>
             }
@@ -144,11 +137,11 @@ function SignUpIn() {
                         Password:
                         <input onChange={handleChangeSignIn} type="password" name="password" autoComplete='new-password'/>
                     </label>
-                    <input className="btn" type="submit" value="Submit" />
+                    <input className="btn" type="submit" value="Submit" disabled={user}/>
                 </form>
 
                 {/* sign In Google__________________________ */}
-                <button onClick={signInWithGoogle} className="btn">Sign in with Google</button>
+                <button onClick={signInWithGoogle} className="btn" disabled={user}>Sign in with Google</button>
             </div>
         </div>
     </>
