@@ -142,3 +142,7 @@ https://attacomsian.com/blog/javascript-local-storage-store-retrieve-objects
 1. Authentication-> Sign-in method-> Email/Password-> Enabled
 2. async/await createUserWithEmailAndPassword(auth, email, password)
 3. async/await signInWithEmailAndPassword(auth, email, password)
+
+
+<!-- redux -->
+npm i redux redux-logger react-redux
