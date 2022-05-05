@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import SignUp from '../components/SignUp';
 
 function SignUpIn() {
-    // const [dataSignUp, setDataSignUp] = useState({})
-    const [dataSignIn, setDataSignIn] = useState({})
+    const [dataSignIn, setDataSignIn] = useState({ email:"", password:""})
     const [user, setUser] = useState({})
     const navigate = useNavigate();
 
@@ -33,9 +32,10 @@ function SignUpIn() {
             e.preventDefault();
             console.log("Sign In user data ",dataSignIn);   
             const user1 = await signInWithEmailAndPassword(auth, dataSignIn.email, dataSignIn.password)
-            console.log("handleSubmitSignIn user ",user1)
+            console.log("handleSubmitSignIn user1 ",user1)
             localStorage.setItem("user", JSON.stringify(dataSignIn))
-            navigate("/")
+            setDataSignIn({email:"", password:""})
+            // navigate("/")
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -83,11 +83,11 @@ function SignUpIn() {
                 <form onSubmit={handleSubmitSignIn}>
                     <label>
                         Email:
-                        <input onChange={handleChangeSignIn} type="text" name="email" autoComplete='off'/>
+                        <input onChange={handleChangeSignIn} value={dataSignIn.email} type="text" name="email" autoComplete='off'/>
                     </label>
                     <label>
                         Password:
-                        <input onChange={handleChangeSignIn} type="password" name="password" autoComplete='new-password'/>
+                        <input onChange={handleChangeSignIn} value={dataSignIn.password} type="password" name="password" autoComplete='new-password'/>
                     </label>
                     <input className="btn" type="submit" value="Submit" disabled={user}/>
                 </form>

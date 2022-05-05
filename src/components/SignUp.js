@@ -32,6 +32,12 @@ const handleSubmitSignUp= async (e) => {
         const user = await createUserWithEmailAndPassword(auth, userData.email, userData.password)
         await addDoc(dbColectionRef, userData)
         // console.log("handleSubmitSignUp user ",user)
+        setUserData({
+            name:"",
+            age:"",
+            email:"",
+            password:""
+        })
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -61,19 +67,19 @@ const handleSubmitSignUp= async (e) => {
         <form onSubmit={handleSubmitSignUp}>
             <label>
                 Full name:
-                <input onChange={handleChangeSignUp} type="text" name="name" autoComplete='off'/>
+                <input onChange={handleChangeSignUp} value={userData.name} type="text" name="name" autoComplete='off'/>
             </label>
             <label>
                 Age:
-                <input onChange={handleChangeSignUp} type="date" name="age" autoComplete='off'/>
+                <input onChange={handleChangeSignUp} value={userData.age} type="date" name="age" autoComplete='off'/>
             </label>
             <label>
                 Email:
-                <input onChange={handleChangeSignUp} type="text" name="email" autoComplete='off'/>
+                <input onChange={handleChangeSignUp} value={userData.email} type="text" name="email" autoComplete='off'/>
             </label>
             <label>
                 Password:
-                <input onChange={handleChangeSignUp} type="password" name="password" autoComplete="new-password"/>
+                <input onChange={handleChangeSignUp} value={userData.password} type="password" name="password" autoComplete="new-password"/>
             </label>
             <input className="btn" type="submit" value="Submit" disabled={user}/>
         </form>
