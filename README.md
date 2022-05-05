@@ -136,3 +136,9 @@ https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#createUserWi
 https://firebase.google.com/docs/firestore/quickstart
 https://medium.com/litslink/react-js-firebase-basics-in-examples-cfc980e6b144
 https://attacomsian.com/blog/javascript-local-storage-store-retrieve-objects
+
+
+<!-- Sign up with Email and Password -->
+1. Authentication-> Sign-in method-> Email/Password-> Enabled
+2. async/await createUserWithEmailAndPassword(auth, email, password)
+3. async/await signInWithEmailAndPassword(auth, email, password)

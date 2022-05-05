@@ -35,7 +35,7 @@ function SignUpIn() {
             console.log("handleSubmitSignIn user1 ",user1)
             localStorage.setItem("user", JSON.stringify(dataSignIn))
             setDataSignIn({email:"", password:""})
-            // navigate("/")
+            navigate("/")
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
