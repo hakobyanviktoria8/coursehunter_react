@@ -4,6 +4,7 @@ import Backet from './Backet'
 import "./../styles/Headers.scss"
 import {auth} from "./../firebase/firebase_config"
 import {signOut, onAuthStateChanged } from 'firebase/auth'
+import { connect } from 'react-redux'
 
 function Header() {
   const [userObj, setUserObj] = useState(localStorage.getItem('user'))
@@ -42,4 +43,8 @@ return (
   )
 }
 
-export default Header
+const mapStateToProes = state =>({
+  currentUser :state.user.currentUser
+})
+
+export default connect(mapStateToProes)(Header)

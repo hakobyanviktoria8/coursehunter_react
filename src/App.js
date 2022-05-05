@@ -5,11 +5,14 @@ import Header from './components/Header';
 import SignIn from './routes/SignIn';
 import Shop from './routes/Shop';
 import Contacts from './routes/Contacts';
+import { connect } from 'react-redux';
+import {setCurrentUser} from "./redux/user/user.actions"
 
 function App() {
   return (
       <BrowserRouter>
         <Header />
+
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/flowers" element={<Flowers />} />
@@ -25,4 +28,7 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchTOProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+export default connect(null, mapDispatchTOProps)(App)
