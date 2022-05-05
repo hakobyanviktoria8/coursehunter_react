@@ -1,51 +1,24 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState, useEffect } from 'react'
 import { auth, signInWithGoogle } from '../firebase/firebase_config'
 import "./../styles/SignIn.scss"
 import { useNavigate } from "react-router-dom";
+import SignUp from '../components/SignUp';
 
 function SignUpIn() {
-    const [dataSignUp, setDataSignUp] = useState({})
+    // const [dataSignUp, setDataSignUp] = useState({})
     const [dataSignIn, setDataSignIn] = useState({})
     const [user, setUser] = useState({})
     const navigate = useNavigate();
 
     // Submit Sign Up registration________________
     // refresh and didn't lost register user
-
     // fixed multiple rendering
     useEffect(() => {
         return onAuthStateChanged(auth, (currentUser)=>{
             setUser(currentUser)
         })
-    }, [])
-
-    // input fileds change
-    const handleChangeSignUp = (e) => {
-        const {name, value} = e.target
-        setDataSignUp({
-            ...dataSignUp,
-            [name] : value,
-        })
-    }
-    // send data fiebase
-    const handleSubmitSignUp= async (e) => {
-        try {
-            e.preventDefault();
-            // console.log("data Sign Up ",dataSignUp);
-            const user = await createUserWithEmailAndPassword(auth, dataSignUp.email, dataSignUp.password)
-            // console.log("handleSubmitSignUp ",user)
-        } catch (error) {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log("Opps",errorMessage)
-        }
-    }
+    }, []) 
 
     // Submit Sign In________________________________
     const handleChangeSignIn =(e) =>{
@@ -59,10 +32,10 @@ function SignUpIn() {
         try {
             e.preventDefault();
             console.log("Sign In user data ",dataSignIn);   
-            const user = await signInWithEmailAndPassword(auth, dataSignIn.email, dataSignIn.password)
-            console.log("handleSubmitSignIn user ",user)
+            const user1 = await signInWithEmailAndPassword(auth, dataSignIn.email, dataSignIn.password)
+            console.log("handleSubmitSignIn user ",user1)
             localStorage.setItem("user", JSON.stringify(dataSignIn))
-            // navigate("/")
+            navigate("/")
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -102,28 +75,7 @@ function SignUpIn() {
        
         <div className='formsWrapper'>
             {/* sign up form data */}
-            <div className='signup'>
-                <h2>Sign Up</h2>
-                <form onSubmit={handleSubmitSignUp}>
-                    <label>
-                        Full name:
-                        <input onChange={handleChangeSignUp} type="text" name="name" autoComplete='off'/>
-                    </label>
-                    <label>
-                        Age:
-                        <input onChange={handleChangeSignUp} type="date" name="age" autoComplete='off'/>
-                    </label>
-                    <label>
-                        Email:
-                        <input onChange={handleChangeSignUp} type="text" name="email" autoComplete='off'/>
-                    </label>
-                    <label>
-                        Password:
-                        <input onChange={handleChangeSignUp} type="password" name="password" autoComplete="new-password"/>
-                    </label>
-                    <input className="btn" type="submit" value="Submit" />
-                </form>
-            </div>
+            <SignUp user={user}/>
 
             {/* sign in form data */}
             <div className='signin'>
